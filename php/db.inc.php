@@ -2,8 +2,8 @@
 
     $servername = "localhost";
     $username = "root";
-    $password = "jsamadmin";
-    $dbname = "wda_db";
+    $password = "";
+    $dbname = "wda";
 
     $conn = mysqli_connect($servername, $username, $password, $dbname) or die (mysqli_error());
     if ($conn->connect_error) {

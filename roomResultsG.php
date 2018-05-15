@@ -272,34 +272,15 @@ session_start();
             });
 
             function refreshResults(){
-                $('#results').empty();
-                $('#sug').empty();
-                $.getJSON("php/searchRooms.php", function(data){
-                    if ('suggestions' in data){
-                        $('#results').html(`<tr>
-                                            <td><div class="flexible4">No matching Results, but...</div></td></tr>`);
-                        $("#tableCont").append(`<table class="table" id="sug"><thead><tr>
-                                        <th scope="row">Hotel Suggestions</th></tr></thead><tbody>
-                                        </tbody></table>`);                      
-                        $.each(data["suggestions"], function(i, value){
-                            $("#sug").append(`<tr><td><div class="flex-half"><div class="about-img-hot fadeInLeft">
-                                            <img src="img/rooms/${value['photo']}" alt=""></div>
-                                            </div><div class="hotelNameLoc" style="max-width: 100% !important; width: auto !important;">
-                                            <h2 style="padding-left: 10px;">${value['name']}</h2>
-                                            <h3 class="loc" style="padding-left: 10px;"><i class="fas fa-map-signs fa-2x"></i>&nbsp;${value['location']}, ${value['area']} <i>(${value['city']})</i></h3>
-                                            </div><div class="content fadeInRight flex-half">
-                                            <p style="padding: 35px 25px 35px 25px;">${value['short_description']}</p>
-                                            <a href="hotelPage.php?id=${value['room_id']}" class="btn btn-info btn-lg" style="margin: 0px 15px 20px 0px; float: right; align-self: flex-end;"> Hotel Page<span style="font-weight: bold;"> &nbsp; >></span></a>
-                                            </div><div class="flexible5"><div style="align-self: center; margin-right: 5px;">
-                                            </div><div class="btn-lg" style="margin-right: 10px; flex-grow: 3; max-width: 21rem; align-self: center;"><span style="font-weight: bold;">Price: &nbsp;</span> ${value['price']} &euro;&nbsp; / night </div>
-                                            <div class="card border-info mb-3" style="max-width: 18rem; margin-right: 10px;"><div class="card-header">Room Type:</div><div class="card-body text-info"><h5 class="card-title">${value['room_type_text']}</h5>
-                                            </div></div><div class="card border-info mb-3" style="max-width: 18rem;"><div class="card-header">Capacity:</div><div class="card-body text-info"><h5 class="card-title">${value['count_of_guests']}</h5>
-                                            </div></div></div></td></tr>`);
-                        });
-                    } else if ('results' in data){
-                        $.each(data["results"], function(i, value){
-                            $("#results").append(`<tr>
-                                        <td><div class="flex-half"><div class="about-img-hot fadeInLeft">
+            $.getJSON("php/searchRooms.php", function(data){
+                if ('suggestions' in data){
+                    $('#results').html(`<tr>
+                                        <td><div class="flexible4">No matching Results, but...</div></td></tr>`);
+                    $("#tableCont").append(`<table class="table" id="sug"><thead><tr>
+                                    <th scope="row">Hotel Suggestions</th></tr></thead><tbody>
+                                    </tbody></table>`);                      
+                    $.each(data["suggestions"], function(i, value){
+                        $("#sug").append(`<tr><td><div class="flex-half"><div class="about-img-hot fadeInLeft">
                                         <img src="img/rooms/${value['photo']}" alt=""></div>
                                         </div><div class="hotelNameLoc" style="max-width: 100% !important; width: auto !important;">
                                         <h2 style="padding-left: 10px;">${value['name']}</h2>
@@ -312,16 +293,33 @@ session_start();
                                         <div class="card border-info mb-3" style="max-width: 18rem; margin-right: 10px;"><div class="card-header">Room Type:</div><div class="card-body text-info"><h5 class="card-title">${value['room_type_text']}</h5>
                                         </div></div><div class="card border-info mb-3" style="max-width: 18rem;"><div class="card-header">Capacity:</div><div class="card-body text-info"><h5 class="card-title">${value['count_of_guests']}</h5>
                                         </div></div></div></td></tr>`);
-                        });
-                    } else {
-                        $('#results').html(`<tr>
-                                            <td><div class="flexible4">No matching Results</div></td></tr>`);
-                    }
-                });
+                    });
+                } else if ('results' in data){
+                    $.each(data["results"], function(i, value){
+                        $("#results").append(`<tr>
+                                    <td><div class="flex-half"><div class="about-img-hot fadeInLeft">
+                                    <img src="img/rooms/${value['photo']}" alt=""></div>
+                                    </div><div class="hotelNameLoc" style="max-width: 100% !important; width: auto !important;">
+                                    <h2 style="padding-left: 10px;">${value['name']}</h2>
+                                    <h3 class="loc" style="padding-left: 10px;"><i class="fas fa-map-signs fa-2x"></i>&nbsp;${value['location']}, ${value['area']} <i>(${value['city']})</i></h3>
+                                    </div><div class="content fadeInRight flex-half">
+                                    <p style="padding: 35px 25px 35px 25px;">${value['short_description']}</p>
+                                    <a href="hotelPage.php?id=${value['room_id']}" class="btn btn-info btn-lg" style="margin: 0px 15px 20px 0px; float: right; align-self: flex-end;"> Hotel Page<span style="font-weight: bold;"> &nbsp; >></span></a>
+                                    </div><div class="flexible5"><div style="align-self: center; margin-right: 5px;">
+                                    </div><div class="btn-lg" style="margin-right: 10px; flex-grow: 3; max-width: 21rem; align-self: center;"><span style="font-weight: bold;">Price: &nbsp;</span> ${value['price']} &euro;&nbsp; / night </div>
+                                    <div class="card border-info mb-3" style="max-width: 18rem; margin-right: 10px;"><div class="card-header">Room Type:</div><div class="card-body text-info"><h5 class="card-title">${value['room_type_text']}</h5>
+                                    </div></div><div class="card border-info mb-3" style="max-width: 18rem;"><div class="card-header">Capacity:</div><div class="card-body text-info"><h5 class="card-title">${value['count_of_guests']}</h5>
+                                    </div></div></div></td></tr>`);
+                    });
+                } else {
+                    $('#results').html(`<tr>
+                                        <td><div class="flexible4">No matching Results</div></td></tr>`);
+                }
+            });
             } //end function
 
 
-        $("#msform").submit(function(e){
+            $("#msform").submit(function(e){
                 e.preventDefault();
                 var room_type = $("#rooms").val();
                 var guests = $("#guests").val();
@@ -338,7 +336,6 @@ session_start();
             });
 
         refreshResults();
-
         </script>
     </body>
 </html>

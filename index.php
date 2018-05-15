@@ -252,7 +252,6 @@
         <!-- AJAX calls -->
         <script>
 
-
             $.getJSON("php/cities.php", function(data){
                 $.each(data["results"], function(i, value){
                   $("#cities").append('<option value=' + value['city'] + '>' + value['city'] + '</option>');
